@@ -1,2 +1,1 @@
-# ncpsy
-帮大学同学做的毕业设计，农产品溯源系统
+﻿﻿﻿﻿# ncpsy帮大学同学做的毕业设计，农产品溯源系统### 技术选择* 后端：spring，spring-mvc, mybatis-plus, maven等* 数据库：mysql* 前端：layui (只能说页面是用layui做的，不是一个前端工程）

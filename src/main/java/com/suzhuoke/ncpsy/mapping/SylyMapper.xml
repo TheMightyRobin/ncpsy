@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suzhuoke.ncpsy.dao.SylyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suzhuoke.ncpsy.model.Syly">
+        <id column="syid" property="syid" />
+        <result column="syip" property="syip" />
+        <result column="sysj" property="sysj" />
+        <result column="syncpid" property="syncpid" />
+    </resultMap>
+
+</mapper>

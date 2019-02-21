@@ -1,0 +1,31 @@
+.form-block {
+	position: relative;
+	padding: 30px;
+	
+	margin-top: 50px;
+}
+
+.form-block h1 {
+	text-align: center;
+}
+
+.submit-btn {
+	width: 100%;
+}
+
+#mainContent h1, .add-content h1, .modify-content h1 {
+	text-align: center;
+}
+
+.add-content {
+	padding: 30px;
+}
+
+.add-form {
+	width: 500px;
+}
+
+.jump-register {
+	color: #009688;
+	float: right;
+}

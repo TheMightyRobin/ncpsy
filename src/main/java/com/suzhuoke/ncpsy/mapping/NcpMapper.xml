@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suzhuoke.ncpsy.dao.NcpMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suzhuoke.ncpsy.model.Ncp">
+        <id column="ncpid" property="ncpid" />
+        <result column="ncpmc" property="ncpmc" />
+        <result column="cd" property="cd" />
+        <result column="pz" property="pz" />
+        <result column="ccrq" property="ccrq" />
+        <result column="zzfs" property="zzfs" />
+        <result column="qyid" property="qyid" />
+        <result column="ewmid" property="ewmid" />
+    </resultMap>
+
+</mapper>

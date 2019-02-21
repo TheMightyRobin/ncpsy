@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suzhuoke.ncpsy.dao.QyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suzhuoke.ncpsy.model.Qy">
+        <id column="qyid" property="qyid" />
+        <result column="zh" property="zh" />
+        <result column="mm" property="mm" />
+        <result column="qymc" property="qymc" />
+        <result column="dz" property="dz" />
+        <result column="fzr" property="fzr" />
+        <result column="dh" property="dh" />
+        <result column="yx" property="yx" />
+        <result column="bz" property="bz" />
+    </resultMap>
+
+</mapper>
