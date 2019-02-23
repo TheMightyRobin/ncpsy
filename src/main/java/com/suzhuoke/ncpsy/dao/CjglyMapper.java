@@ -1,6 +1,6 @@
 package com.suzhuoke.ncpsy.dao;
 
-import com.suzhuoke.ncpsy.model.Syly;
+import com.suzhuoke.ncpsy.model.Cjgly;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author RobinYoung10
  * @since 2019-02-22
  */
-public interface SylyMapper extends BaseMapper<Syly> {
+public interface CjglyMapper extends BaseMapper<Cjgly> {
 
 }

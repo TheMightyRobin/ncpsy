@@ -2,7 +2,10 @@ package com.suzhuoke.ncpsy.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -26,7 +29,8 @@ public class Ncp extends Model<Ncp> {
 
     private String pz;
 
-    private LocalDate ccrq;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date ccrq;
 
     private String zzfs;
 
@@ -67,11 +71,11 @@ public class Ncp extends Model<Ncp> {
         this.pz = pz;
     }
 
-    public LocalDate getCcrq() {
+    public Date getCcrq() {
         return ccrq;
     }
 
-    public void setCcrq(LocalDate ccrq) {
+    public void setCcrq(Date ccrq) {
         this.ccrq = ccrq;
     }
 

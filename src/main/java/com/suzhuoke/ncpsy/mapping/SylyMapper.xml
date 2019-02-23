@@ -8,6 +8,7 @@
         <result column="syip" property="syip" />
         <result column="sysj" property="sysj" />
         <result column="syncpid" property="syncpid" />
+        <result column="syqyid" property="syqyid" />
     </resultMap>
 
 </mapper>

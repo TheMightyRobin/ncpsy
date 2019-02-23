@@ -19,6 +19,12 @@ public class ViewsController {
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@RequestMapping("/")
+	public String index(Model model) {
+		logger.info("访问index页面");
+		return "index";
+	}
+	
 	@RequestMapping("/login")
 	public String login(Model model) {
 		logger.info("访问user/login页面");
@@ -83,5 +89,35 @@ public class ViewsController {
 	public String sourceChart(Model model) {
 		logger.info("访问source/chart页面");
 		return "source/chart";
+	}
+	
+	@RequestMapping("/admin/home")
+	public String adminHome(Model model) {
+		logger.info("访问admin/home页面");
+		return "admin/home";
+	}
+	
+	@RequestMapping("/admin/login")
+	public String adminLogin(Model model) {
+		logger.info("访问admin/login页面");
+		return "admin/login";
+	}
+	
+	@RequestMapping("/admin/setting")
+	public String adminSetting(Model model) {
+		logger.info("访问admin/setting页面");
+		return "admin/setting";
+	}
+	
+	@RequestMapping("/admin/user-list")
+	public String adminUserList(Model model) {
+		logger.info("访问admin/user-list页面");
+		return "admin/user-list";
+	}
+	
+	@RequestMapping("/info/product-info")
+	public String infoProductInfo(Model model) {
+		logger.info("访问info/product-info页面");
+		return "info/product-info";
 	}
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author RobinYoung10
- * @since 2019-02-21
+ * @since 2019-02-22
  */
 @TableName("tb_syly")
 public class Syly extends Model<Syly> {
@@ -25,6 +25,8 @@ public class Syly extends Model<Syly> {
     private LocalDate sysj;
 
     private String syncpid;
+
+    private String syqyid;
 
 
     public String getSyid() {
@@ -59,6 +61,14 @@ public class Syly extends Model<Syly> {
         this.syncpid = syncpid;
     }
 
+    public String getSyqyid() {
+        return syqyid;
+    }
+
+    public void setSyqyid(String syqyid) {
+        this.syqyid = syqyid;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.syid;
@@ -71,6 +81,7 @@ public class Syly extends Model<Syly> {
         ", syip=" + syip +
         ", sysj=" + sysj +
         ", syncpid=" + syncpid +
+        ", syqyid=" + syqyid +
         "}";
     }
 }

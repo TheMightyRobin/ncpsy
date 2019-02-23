@@ -3,7 +3,7 @@
 <%@ taglib prefix="mytag" uri="/WEB-INF/tag/tag.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<mytag:head title="农产品溯源系统" defineJs="/ncpsy/static/js/isQyLogin.js" defineCss="/ncpsy/static/css/tab-style.css" />
+<mytag:head title="农产品溯源系统-超级管理员" defineJs="/ncpsy/static/js/isAdminLogin.js" />
 <body>
 	<div class="layui-layout layui-layout-admin">
 	  <div class="layui-header">
@@ -11,6 +11,16 @@
 	    <!-- 头部区域（可配合layui已有的水平导航） -->
 	    <ul class="layui-nav layui-layout-left">
 	      <li class="layui-nav-item"><a href="">控制台</a></li>
+	      <li class="layui-nav-item"><a href="">商品管理</a></li>
+	      <li class="layui-nav-item"><a href="">用户</a></li>
+	      <li class="layui-nav-item">
+	        <a href="javascript:;">其它系统</a>
+	        <dl class="layui-nav-child">
+	          <dd><a href="">邮件管理</a></dd>
+	          <dd><a href="">消息管理</a></dd>
+	          <dd><a href="">授权管理</a></dd>
+	        </dl>
+	      </li>
 	    </ul>
 	    <ul class="layui-nav layui-layout-right">
 	      <li class="layui-nav-item">
@@ -19,8 +29,8 @@
 	          <span id="qymc">贤心</span>
 	        </a>
 	        <dl class="layui-nav-child">
-	          <dd><a href="">回到首页</a></dd>
-	          <dd><a href="">设置</a></dd>
+	          <dd><a href="">基本资料</a></dd>
+	          <dd><a href="">安全设置</a></dd>
 	        </dl>
 	      </li>
 	      <li class="layui-nav-item"><a href="javascript:;" id="logout">退出登录</a></li>
@@ -56,19 +66,25 @@
 	        <li class="layui-nav-item">
 	          <a href="javascript:;">企业管理</a>
 	          <dl class="layui-nav-child">
-	            <dd><a href="javascript:;" class="tablink" id="userSetting" tabsrc="/ncpsy/setting"><i class="layui-icon layui-icon-set-fill"></i> 设置</a></dd>
+	            <dd><a href="javascript:;" class="tablink" id="userList" tabsrc="/ncpsy/admin/user-list"><i class="layui-icon layui-icon-set-fill"></i> 企业列表</a></dd>
+	          </dl>
+	        </li>
+	        <li class="layui-nav-item">
+	          <a href="javascript:;">超级管理员</a>
+	          <dl class="layui-nav-child">
+	            <dd><a href="javascript:;" class="tablink" id="userSetting" tabsrc="/ncpsy/admin/setting"><i class="layui-icon layui-icon-set-fill"></i> 设置</a></dd>
 	          </dl>
 	        </li>
 	      </ul>
 	    </div>
 	  </div>
 	  
-	  <div class="layui-body" style="height:100%">
+	  <div class="layui-body">
 	    <!-- 内容主体区域 -->
-	    <div class="layui-tab" lay-filter="page" lay-allowClose="true" style="height:100%">
+	    <div class="layui-tab" lay-filter="page" lay-allowClose="true">
 	    	<ul class="layui-tab-title">
 	    	</ul>
-	    	<div class="layui-tab-content" style="height:100%">
+	    	<div class="layui-tab-content">
 	    	</div>
 	    </div>
 	  </div>
@@ -82,7 +98,7 @@
 	layui.use('element', function(){
 	  var element = layui.element;
 	  
-	  $("#qymc").text(localStorage.getItem("qymc"));
+	  $("#qymc").text(localStorage.getItem("mc"));
 	  
 	  //用于存放tabId的数组
 	  var tabList = new Array();
@@ -102,7 +118,7 @@
 			  tabList.push(tabId);
 			  element.tabAdd("page", {
 				  title: tabTitle,
-				  content: "<div style='height:100%'><iframe src='" + tabSrc + "' width='100%' height='100%' frameborder='0'></iframe></div>",
+				  content: "<div><iframe src='" + tabSrc + "' width='100%' height='100%' frameborder='0'></iframe></div>",
 				  id: tabId
 			  });
 		  }
@@ -117,9 +133,10 @@
 		  tabList.splice(index, 1);
 	  });
 	  
+	  //退出登录
 	  $("#logout").on("click", function() {
 		  localStorage.clear();
-		  window.location.href = "/ncpsy/login";
+		  window.location.href = "/ncpsy/admin/login";
 	  });
 	});
 	</script>

@@ -1,8 +1,8 @@
 package com.suzhuoke.ncpsy.service.impl;
 
-import com.suzhuoke.ncpsy.model.Syly;
-import com.suzhuoke.ncpsy.dao.SylyMapper;
-import com.suzhuoke.ncpsy.service.ISylyService;
+import com.suzhuoke.ncpsy.model.Cjgly;
+import com.suzhuoke.ncpsy.dao.CjglyMapper;
+import com.suzhuoke.ncpsy.service.ICjglyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-02-22
  */
 @Service
-public class SylyServiceImpl extends ServiceImpl<SylyMapper, Syly> implements ISylyService {
+public class CjglyServiceImpl extends ServiceImpl<CjglyMapper, Cjgly> implements ICjglyService {
 
 }
