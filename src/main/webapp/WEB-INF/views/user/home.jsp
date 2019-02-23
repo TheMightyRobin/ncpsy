@@ -16,11 +16,11 @@
 	      <li class="layui-nav-item">
 	        <a href="javascript:;">
 	          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-	          <span id="qymc">贤心</span>
+	          <span id="qymc">企业</span>
 	        </a>
 	        <dl class="layui-nav-child">
 	          <dd><a href="">回到首页</a></dd>
-	          <dd><a href="">设置</a></dd>
+	          <dd><a href="javascript:;" class="tablink" id="userSetting" tabsrc="/ncpsy/setting">设置</a></dd>
 	        </dl>
 	      </li>
 	      <li class="layui-nav-item"><a href="javascript:;" id="logout">退出登录</a></li>
@@ -36,8 +36,6 @@
 	          <dl class="layui-nav-child">
 	            <dd><a href="javascript:;" class="tablink" id="productList" tabsrc="/ncpsy/product/list"><i class="layui-icon layui-icon-form"></i> 农产品列表</a></dd>
 	            <dd><a href="javascript:;" class="tablink" id="productAdd" tabsrc="/ncpsy/product/add"><i class="layui-icon layui-icon-add-circle-fine"></i> 新增农产品</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="productModify" tabsrc="/ncpsy/product/modify"><i class="layui-icon layui-icon-edit"></i> 编辑农产品</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="productDelete" tabsrc="/ncpsy/product/delete"><i class="layui-icon layui-icon-delete"></i> 删除农产品</a></dd>
 	          </dl>
 	        </li>
 	        <li class="layui-nav-item">

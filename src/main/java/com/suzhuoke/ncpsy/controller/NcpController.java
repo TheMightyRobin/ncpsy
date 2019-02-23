@@ -73,7 +73,6 @@ public class NcpController {
 			QueryWrapper<Ncp> ncpidQueryWrapper = new QueryWrapper<>();
 			ncpidQueryWrapper.eq("ncpid", ncpid);
 			int isExist = ncpService.count(ncpidQueryWrapper);
-			logger.info("========={}", isExist);
 			if(isExist > 0) {
 				num += 1;
 				ncpid = "ncp";
@@ -87,16 +86,30 @@ public class NcpController {
 		//生成二维码id
 		QueryWrapper<Ewm> ewmQueryWrapper = new QueryWrapper<>();
 		ewmQueryWrapper.likeLeft("ewmid", ncp.getQyid());
-		int num2 = ewmService.count(ewmQueryWrapper) + 1;
+		//int num2 = ewmService.count(ewmQueryWrapper) + 1;
+		int num2 = num;
 		String ewmid = "ewm";
-		if(num2 /10 == 0) {
-			ewmid = ewmid.concat("00" + num2);
-		} else if(num2 / 10 >= 1 && num2 / 10 < 10) {
-			ewmid = ewmid.concat("0" + num2);
-		} else {
-			ewmid = ewmid.concat("" + num2);
+		while(ncp.getEwmid() == null) {
+			if(num2 /10 == 0) {
+				ewmid = ewmid.concat("00" + num2);
+			} else if(num2 / 10 >= 1 && num2 / 10 < 10) {
+				ewmid = ewmid.concat("0" + num2);
+			} else {
+				ewmid = ewmid.concat("" + num2);
+			}
+			ewmid = ewmid.concat("-" + ncpid);
+			//查询数据库是否存在相同的ewmid，存在则num+1，继续循环
+			QueryWrapper<Ewm> ewmidQueryWrapper = new QueryWrapper<>();
+			ewmidQueryWrapper.eq("ewmid", ewmid);
+			int isExist = ewmService.count(ewmidQueryWrapper);
+			if(isExist > 0) {
+				num2 += 1;
+				ewmid = "ewm";
+				continue;
+			} else {
+				break;
+			}
 		}
-		ewmid = ewmid.concat("-" + ncpid);
 		
 		//获取服务器地址、端口、项目名
 		HttpServletRequest httpRequest=(HttpServletRequest)request;
@@ -190,8 +203,16 @@ public class NcpController {
 		logger.info("/handle/product/list===> ncp={}", ncp);
 		QueryWrapper<Ncp> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("ncpid", ncp.getNcpid());
+		ncp = ncpService.getOne(queryWrapper);
 		boolean flag = ncpService.remove(queryWrapper);
-		return flag;
+		if(flag) {
+			QueryWrapper<Ewm> ewmQueryWrapper = new QueryWrapper<>();
+			ewmQueryWrapper.eq("ewmid", ncp.getEwmid());
+			boolean flag2 = ewmService.remove(ewmQueryWrapper);
+			return flag2;
+		} else {
+			return flag;
+		}
 	}
 }
 

@@ -46,8 +46,6 @@
 	          <dl class="layui-nav-child">
 	            <dd><a href="javascript:;" class="tablink" id="productList" tabsrc="/ncpsy/product/list"><i class="layui-icon layui-icon-form"></i> 农产品列表</a></dd>
 	            <dd><a href="javascript:;" class="tablink" id="productAdd" tabsrc="/ncpsy/product/add"><i class="layui-icon layui-icon-add-circle-fine"></i> 新增农产品</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="productModify" tabsrc="/ncpsy/product/modify"><i class="layui-icon layui-icon-edit"></i> 编辑农产品</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="productDelete" tabsrc="/ncpsy/product/delete"><i class="layui-icon layui-icon-delete"></i> 删除农产品</a></dd>
 	          </dl>
 	        </li>
 	        <li class="layui-nav-item">
