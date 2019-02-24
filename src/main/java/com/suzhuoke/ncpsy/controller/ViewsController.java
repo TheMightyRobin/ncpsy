@@ -67,10 +67,10 @@ public class ViewsController {
 		return "product/modify";
 	}
 	
-	@RequestMapping("/product/delete")
+	@RequestMapping("/product/info")
 	public String productDelete(Model model) {
-		logger.info("访问product/delete页面");
-		return "product/delete";
+		logger.info("访问product/info页面");
+		return "product/info";
 	}
 	
 	@RequestMapping("/qrcode/list")

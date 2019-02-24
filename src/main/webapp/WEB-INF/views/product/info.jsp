@@ -8,10 +8,6 @@
 	<p id="ncpidParam" style="visibility: hidden">${ param.ncpid }</p>
 	<div>
 		<table class="layui-table">
-			<colgroup>
-				<col width="30%">
-				<col width="70%">
-			</colgroup>
 			<tbody>
 				<tr>
 					<th>农产品id</th>
@@ -113,7 +109,6 @@
 								for(var prop in response) {
 									$("#"+prop).text(response[prop]);
 								}
-								sendSyly(ncpData.ncpid, qyData.qyid);
 							},
 							error: function(response) {
 								console.log(response);
@@ -130,29 +125,6 @@
 				}
 			});
 		});
-		
-		//发送ajax请求到溯源来源handle
-		function sendSyly(ncpid, qyid) {
-			var data = {
-					syncpid: ncpid,
-					syqyid: qyid
-			}
-			console.log(data);
-			$.ajax({
-				url: "/ncpsy/handle/source/count",
-				type: "post",
-				contentType: "application/json;charset=UTF-8",
-				data: JSON.stringify(data),
-				dataType: "json",
-				timeout: 20000,
-				success: function(response) {
-					console.log(response);
-				},
-				error: function(response) {
-					console.log(response);
-				}
-			})
-		}
 	</script>
 </body>
 </html>

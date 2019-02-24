@@ -56,7 +56,7 @@
 					title: '农产品信息',
 					area: ['60%', '60%'],
 					offset: '50px',
-					content: "/ncpsy/info/product-info?ncpid=" + data.ncpid 
+					content: "/ncpsy/product/info?ncpid=" + data.ncpid 
 				});
 			} else if(layEvent == 'edit') {
 				layer.open({

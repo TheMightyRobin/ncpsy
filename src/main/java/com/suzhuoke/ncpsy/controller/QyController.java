@@ -33,6 +33,11 @@ public class QyController {
 	@Autowired
 	private IQyService qyService;
 	
+	/**
+	 * 注册
+	 * @param qy
+	 * @return
+	 */
 	@RequestMapping("/register")
 	@ResponseBody
 	public boolean register(@RequestBody Qy qy) {
@@ -55,6 +60,11 @@ public class QyController {
 		return flag;
 	}
 	
+	/**
+	 * 登录
+	 * @param qy
+	 * @return
+	 */
 	@RequestMapping("/login")
 	@ResponseBody
 	public Qy login(@RequestBody Qy qy) {
@@ -63,6 +73,16 @@ public class QyController {
 		queryWrapper.eq("zh", qy.getZh()).eq("mm", qy.getMm());
 		Qy qyEntity = qyService.getOne(queryWrapper);
 		return qyEntity;
+	}
+	
+	@RequestMapping("/user/get")
+	@ResponseBody
+	public Qy get(@RequestBody Qy qy) {
+		logger.info("/handle/user/get===> Qy={}", qy);
+		QueryWrapper<Qy> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("qyid", qy.getQyid());
+		qy = qyService.getOne(queryWrapper);
+		return qy;
 	}
 
 }

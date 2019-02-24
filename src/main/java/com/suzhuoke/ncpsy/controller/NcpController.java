@@ -197,6 +197,21 @@ public class NcpController {
 		return response;
 	}
 	
+	@RequestMapping("/product/getone")
+	@ResponseBody
+	public Ncp productGetone(@RequestBody Ncp ncp) {
+		logger.info("/handle/product/getone===> ncp={}", ncp);
+		QueryWrapper<Ncp> ncpQueryWrapper = new QueryWrapper<>();
+		ncpQueryWrapper.eq("ncpid", ncp.getNcpid());
+		ncp = ncpService.getOne(ncpQueryWrapper);
+		return ncp;
+	}
+	
+	/**
+	 * 删除农产品
+	 * @param ncp
+	 * @return
+	 */
 	@RequestMapping("/product/delete")
 	@ResponseBody
 	public boolean productDelete(@RequestBody Ncp ncp) {

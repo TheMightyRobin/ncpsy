@@ -2,7 +2,7 @@ package com.suzhuoke.ncpsy.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.time.LocalDate;
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -22,7 +22,7 @@ public class Syly extends Model<Syly> {
 
     private String syip;
 
-    private LocalDate sysj;
+    private Date sysj;
 
     private String syncpid;
 
@@ -45,11 +45,11 @@ public class Syly extends Model<Syly> {
         this.syip = syip;
     }
 
-    public LocalDate getSysj() {
+    public Date getSysj() {
         return sysj;
     }
 
-    public void setSysj(LocalDate sysj) {
+    public void setSysj(Date sysj) {
         this.sysj = sysj;
     }
 
