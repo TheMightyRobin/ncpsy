@@ -59,12 +59,18 @@
 					content: "/ncpsy/product/info?ncpid=" + data.ncpid 
 				});
 			} else if(layEvent == 'edit') {
+				var url = "/ncpsy/product/modify?ncpid=" + data.ncpid
+						+ "&ncpmc=" + data.ncpmc
+						+ "&cd=" + data.cd
+						+ "&pz=" + data.pz
+						+ "&ccrq=" + data.ccrq
+						+ "&zzfs=" + data.zzfs;
 				layer.open({
 					type: 2,
 					title: '农产品编辑',
 					area: ['60%', '60%'],
 					offset: '50px',
-					content: "/ncpsy/product/modify?ncpid=" + data.ncpid 
+					content: url
 				});
 			} else if(layEvent == 'del') {
 				layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
@@ -88,7 +94,7 @@
 						},
 						error: function(response) {
 							layer.close(loadIndex);
-							layer.msg("请求出错，请重试！")
+							layer.msg("请求出错，请重试！");
 						}
 					});
 					layer.close(index);

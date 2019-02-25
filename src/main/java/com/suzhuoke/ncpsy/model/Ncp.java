@@ -29,7 +29,7 @@ public class Ncp extends Model<Ncp> {
 
     private String pz;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
     private Date ccrq;
 
     private String zzfs;

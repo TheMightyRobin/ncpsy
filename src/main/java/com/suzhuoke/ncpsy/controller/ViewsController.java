@@ -79,6 +79,12 @@ public class ViewsController {
 		return "qrcode/list";
 	}
 	
+	@RequestMapping("/qrcode/info")
+	public String qrcodeInfo(Model model) {
+		logger.info("访问qrcode/info页面");
+		return "qrcode/info";
+	}
+	
 	@RequestMapping("/source/list")
 	public String sourceList(Model model) {
 		logger.info("访问source/list页面");

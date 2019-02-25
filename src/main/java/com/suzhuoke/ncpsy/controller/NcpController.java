@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.suzhuoke.ncpsy.model.Ewm;
 import com.suzhuoke.ncpsy.model.Ncp;
 import com.suzhuoke.ncpsy.service.IEwmService;
@@ -177,6 +178,7 @@ public class NcpController {
 			}
 		}
 		List<Ncp> ncpList = ncpService.list(ncpQueryWrapper);
+		logger.info("=========={}", ncpList);
 		//查询到的总量，返回数据要用
 		int count = ncpList.size();
 		//list截取分页的索引
@@ -197,6 +199,11 @@ public class NcpController {
 		return response;
 	}
 	
+	/**
+	 * 获取农产品表一个数据
+	 * @param ncp
+	 * @return
+	 */
 	@RequestMapping("/product/getone")
 	@ResponseBody
 	public Ncp productGetone(@RequestBody Ncp ncp) {
@@ -205,6 +212,21 @@ public class NcpController {
 		ncpQueryWrapper.eq("ncpid", ncp.getNcpid());
 		ncp = ncpService.getOne(ncpQueryWrapper);
 		return ncp;
+	}
+	
+	@RequestMapping("/product/modify")
+	@ResponseBody
+	public boolean productModify(@RequestBody Ncp ncp) {
+		logger.info("/handle/product/modify===> ncp={}", ncp);
+		QueryWrapper<Ncp> ncpQueryWrapper = new QueryWrapper<>();
+		ncpQueryWrapper.eq("ncpid", ncp.getNcpid());
+		Ncp ncpEntity = ncpService.getOne(ncpQueryWrapper);
+		ncp.setQyid(ncpEntity.getQyid());
+		ncp.setEwmid(ncpEntity.getEwmid());
+		UpdateWrapper<Ncp> ncpUpdateWrapper = new UpdateWrapper<>();
+		ncpUpdateWrapper.eq("ncpid", ncp.getNcpid());
+		boolean flag = ncpService.update(ncp, ncpUpdateWrapper);
+		return flag;
 	}
 	
 	/**

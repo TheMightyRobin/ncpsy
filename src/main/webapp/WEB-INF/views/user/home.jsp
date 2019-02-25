@@ -71,9 +71,9 @@
 	    </div>
 	  </div>
 	  
-	  <div class="layui-footer">
+	  <div class="layui-footer" style="z-index:1000">
 	    <!-- 底部固定区域 -->
-	    © layui.com - 底部固定区域
+	    © 苏卓可 - 底部固定区域
 	  </div>
 	</div>
 	<script>

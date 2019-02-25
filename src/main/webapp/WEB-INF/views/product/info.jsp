@@ -8,6 +8,10 @@
 	<p id="ncpidParam" style="visibility: hidden">${ param.ncpid }</p>
 	<div>
 		<table class="layui-table">
+			<colgroup>
+				<col width="30%">
+				<col width="70%">
+			</colgroup>
 			<tbody>
 				<tr>
 					<th>农产品id</th>

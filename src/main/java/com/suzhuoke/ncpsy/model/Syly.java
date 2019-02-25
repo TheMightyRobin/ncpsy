@@ -2,6 +2,8 @@ package com.suzhuoke.ncpsy.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -22,6 +24,7 @@ public class Syly extends Model<Syly> {
 
     private String syip;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
     private Date sysj;
 
     private String syncpid;
