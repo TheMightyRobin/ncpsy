@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.suzhuoke.ncpsy.dao.SylyMapper;
 import com.suzhuoke.ncpsy.model.Ncp;
 import com.suzhuoke.ncpsy.model.Syly;
+import com.suzhuoke.ncpsy.model.SylyCountNcpGroupByNcpid;
 import com.suzhuoke.ncpsy.service.ISylyService;
 
 import java.lang.reflect.Field;
@@ -44,6 +46,9 @@ public class SylyController {
 	@Autowired
 	private ISylyService sylyService;
 	
+	@Autowired
+	private SylyMapper sylyMapper;
+	
 	/**
 	 * 溯源来源计数
 	 * @param syly
@@ -75,6 +80,14 @@ public class SylyController {
 		return flag;
 	}
 	
+	/**
+	 * 溯源列表
+	 * @param syly
+	 * @param page
+	 * @param limit
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/source/list")
 	@ResponseBody
 	public Map sourceList(Syly syly, @RequestParam int page, @RequestParam int limit) throws Exception {
@@ -126,36 +139,130 @@ public class SylyController {
 		return response;
 	}
 	
-	@RequestMapping("/source/chart")
+	/**
+	 * 获取7天溯源数据
+	 * @param syly
+	 * @return
+	 */
+	@RequestMapping("/source/line")
 	@ResponseBody
 	public Map sourceChart(@RequestBody Syly syly) {
-		logger.info("/handle/source/chart===> syly={}", syly);
+		logger.info("/handle/source/line===> syly={}", syly);
 		//groud by 溯源时间查询list
 		QueryWrapper<Syly> sylyQueryWrapper = new QueryWrapper<>();
 		sylyQueryWrapper.groupBy("sysj").eq("syqyid", syly.getSyqyid());
 		List<Syly> sylyList = sylyService.list(sylyQueryWrapper);
-		//截取list最后七项
-		sylyList = sylyList.subList(sylyList.size()-7, sylyList.size());
+		//map对象用来储存返回数据
+		Map map = new HashMap();
 		//新建sysjList和counts，用于保存时间和访问数
 		List<String> sysjList = new ArrayList<>();
-		int[] counts = new int[7];
-		int num = 0;
-		for(Syly item : sylyList) {
-			//依次查询溯源次数
-			QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
-			countQueryWrapper.eq("sysj", item.getSysj()).eq("syqyid", syly.getSyqyid());
-			int count = sylyService.count(countQueryWrapper);
-			counts[num] = count;
-			num++;
-			//溯源时间转字符串
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			String sysjString = df.format(item.getSysj());
-			sysjList.add(sysjString);
+		int[] counts = new int[sylyList.size()];
+		if(sylyList.size() >= 7) {
+			//截取list最后七项
+			sylyList = sylyList.subList(sylyList.size()-7, sylyList.size());
+			int num = 0;
+			for(Syly item : sylyList) {
+				//依次查询溯源次数
+				QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
+				countQueryWrapper.eq("sysj", item.getSysj()).eq("syqyid", syly.getSyqyid());
+				int count = sylyService.count(countQueryWrapper);
+				counts[num] = count;
+				num++;
+				//溯源时间转字符串
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				String sysjString = df.format(item.getSysj());
+				sysjList.add(sysjString);
+			}
+			map.put("sysjList", sysjList);
+			map.put("counts", counts);
+			return map;
+		} else {
+			sylyList = sylyList.subList(0, sylyList.size());
+			int num = 0;
+			for(Syly item : sylyList) {
+				//依次查询溯源次数
+				QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
+				countQueryWrapper.eq("sysj", item.getSysj()).eq("syqyid", syly.getSyqyid());
+				int count = sylyService.count(countQueryWrapper);
+				counts[num] = count;
+				num++;
+				//溯源时间转字符串
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				String sysjString = df.format(item.getSysj());
+				sysjList.add(sysjString);
+			}
+			map.put("sysjList", sysjList);
+			map.put("counts", counts);
+			return map;
 		}
+	}
+	
+	@RequestMapping("/source/pie")
+	@ResponseBody
+	public Map sourcePie(@RequestBody Syly syly) {
+		logger.info("/handle/source/pie===> syly={}", syly);
+		//获取溯源总数
+		QueryWrapper<Syly> sylyQueryWrapper = new QueryWrapper<>();
+		sylyQueryWrapper.eq("syqyid", syly.getSyqyid());
+		int count = sylyService.count(sylyQueryWrapper);
+		int alreadyGet = 0;
+		//获取最大溯源量的4个ncp
+		List<SylyCountNcpGroupByNcpid> dataList = sylyMapper.selectSylyCountNcpGroupByNcpid(syly.getSyqyid());
+		//新建两个列表对象储存返回数据
+		List<String> ncpmcList = new ArrayList<>();
+		List<Integer> countList = new ArrayList<>();
+		//插入查询到的数据到list
+		for(SylyCountNcpGroupByNcpid item : dataList) {
+			ncpmcList.add(item.getNcpmc());
+			countList.add(item.getCount());
+			alreadyGet += item.getCount();
+		}
+		ncpmcList.add("其他");
+		countList.add(count-alreadyGet);
 		Map map = new HashMap();
-		map.put("sysjList", sysjList);
-		map.put("counts", counts);
+		map.put("ncpmcList", ncpmcList);
+		map.put("countList", countList);
 		return map;
+	}
+	
+	@RequestMapping("/source/total")
+	@ResponseBody
+	public List<String> sourceTotal(@RequestBody Syly syly) {
+		logger.info("/handle/source/total===> syly={}", syly);
+		//获取溯源总数
+		QueryWrapper<Syly> sylyQueryWrapper = new QueryWrapper<>();
+		sylyQueryWrapper.eq("syqyid", syly.getSyqyid());
+		int count = sylyService.count(sylyQueryWrapper);
+		List<String> list = new ArrayList<>();
+		list.add(count+"");
+		return list;
+	}
+	
+	@RequestMapping("/source/today")
+	@ResponseBody
+	public List<String> sourceToday(@RequestBody Syly syly) {
+		logger.info("/handle/source/today===> syly={}", syly);
+		//获取今天日期
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String todayString = df.format(new Date());
+		//获取昨天日期
+		SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+		String yesterdayString = df.format(new Date(new Date().getTime()-86400000L));
+		//查询今天总数
+		QueryWrapper<Syly> todayQueryWrapper = new QueryWrapper<>();
+		todayQueryWrapper.eq("syqyid", syly.getSyqyid()).eq("sysj", todayString);
+		int todayCount = sylyService.count(todayQueryWrapper);
+		//查询昨天总数
+		QueryWrapper<Syly> yesterdayQueryWrapper = new QueryWrapper<>();
+		yesterdayQueryWrapper.eq("syqyid", syly.getSyqyid()).eq("sysj", yesterdayString);
+		int yesterdayCount = sylyService.count(yesterdayQueryWrapper);
+		//算出同比增长比例
+		float rise = ((float)todayCount - (float)yesterdayCount) / (float)yesterdayCount * 100;
+		
+		List<String> list = new ArrayList<>();
+		list.add(todayCount+"");
+		list.add(rise+"%");
+		return list;
 	}
 
 }

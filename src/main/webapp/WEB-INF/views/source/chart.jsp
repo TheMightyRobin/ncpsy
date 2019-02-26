@@ -25,7 +25,7 @@
 		
 		
 		$.ajax({
-			url: "/ncpsy/handle/source/chart",
+			url: "/ncpsy/handle/source/line",
 			type: "post",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(data),
@@ -37,7 +37,8 @@
 				sysjList = response.sysjList;
 				//判断当前日期是否大于返回数据的最大日期
 				var nowDate = nowDateToString();
-				if(nowDate > sysjList[6]) {
+				console.log(nowDate);
+				if(nowDate > sysjList[sysjList.length-1]) {
 					for(var i = 0; i < sysjList.length; i++) {
 						counts[i] = counts[i+1];
 						sysjList[i] = sysjList[i+1];

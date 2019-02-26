@@ -49,6 +49,12 @@ public class ViewsController {
 		return "user/setting";
 	}
 	
+	@RequestMapping("/user/index")
+	public String userIndex(Model model) {
+		logger.info("访问user/index");
+		return "user/index";
+	}
+	
 	@RequestMapping("/product/list")
 	public String productList(Model model) {
 		logger.info("访问product/list页面");

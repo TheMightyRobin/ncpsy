@@ -10,7 +10,7 @@
 	    <div class="layui-logo">农产品溯源系统</div>
 	    <!-- 头部区域（可配合layui已有的水平导航） -->
 	    <ul class="layui-nav layui-layout-left">
-	      <li class="layui-nav-item"><a href="">控制台</a></li>
+	      <li class="layui-nav-item"><a href="javascript:;" class="tablink" id="userIndex" tabsrc="/ncpsy/user/index">主页</a></li>
 	    </ul>
 	    <ul class="layui-nav layui-layout-right">
 	      <li class="layui-nav-item">
@@ -66,7 +66,7 @@
 	    <div class="layui-tab" lay-filter="page" lay-allowClose="true" style="height:100%">
 	    	<ul class="layui-tab-title">
 	    	</ul>
-	    	<div class="layui-tab-content" style="height:100%">
+	    	<div class="layui-tab-content" style="height:100%;padding:0">
 	    	</div>
 	    </div>
 	  </div>
@@ -119,6 +119,18 @@
 		  localStorage.clear();
 		  window.location.href = "/ncpsy/login";
 	  });
+	  
+	  //渲染主页
+	  var indexId = $("#userIndex").attr("id");
+	  var indexSrc = $("#userIndex").attr("tabSrc");
+	  var indexTitle = $("#userIndex")[0].innerText;
+	  tabList.push(indexId);
+	  element.tabAdd("page", {
+		  title: indexTitle,
+		  content: "<div style='height:100%'><iframe src='" + indexSrc + "' width='100%' height='100%' frameborder='0'></iframe></div>",
+		  id: indexId
+	  });
+	  element.tabChange('page', indexId);
 	});
 	</script>
 </body>
