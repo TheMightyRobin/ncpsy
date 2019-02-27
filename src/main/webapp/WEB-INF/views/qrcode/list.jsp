@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <mytag:head title="农产品溯源系统-二维码列表" />
-<body>
+<body style="padding:10px">
 	<div>
 		<table id="list" lay-filter="list"></table>
 	</div>

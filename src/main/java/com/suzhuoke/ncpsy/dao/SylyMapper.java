@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SylyMapper extends BaseMapper<Syly> {
 
-	@Select("select syncpid, ncpmc, count(*) from tb_syly inner join tb_ncp on tb_syly.syncpid = tb_ncp.ncpid and tb_syly.syqyid = 'qy005' group by tb_syly.syncpid order by count(*) desc limit 4")
+	@Select("select syncpid, ncpmc, count(*) from tb_syly inner join tb_ncp on tb_syly.syncpid = tb_ncp.ncpid and tb_syly.syqyid = #{qyid} group by tb_syly.syncpid order by count(*) desc limit 4")
 	@Results({
 		@Result(column="syncpid",property="syncpid"),
 		@Result(column="ncpmc",property="ncpmc"),

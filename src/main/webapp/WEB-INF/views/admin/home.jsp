@@ -10,17 +10,6 @@
 	    <div class="layui-logo">农产品溯源系统</div>
 	    <!-- 头部区域（可配合layui已有的水平导航） -->
 	    <ul class="layui-nav layui-layout-left">
-	      <li class="layui-nav-item"><a href="">控制台</a></li>
-	      <li class="layui-nav-item"><a href="">商品管理</a></li>
-	      <li class="layui-nav-item"><a href="">用户</a></li>
-	      <li class="layui-nav-item">
-	        <a href="javascript:;">其它系统</a>
-	        <dl class="layui-nav-child">
-	          <dd><a href="">邮件管理</a></dd>
-	          <dd><a href="">消息管理</a></dd>
-	          <dd><a href="">授权管理</a></dd>
-	        </dl>
-	      </li>
 	    </ul>
 	    <ul class="layui-nav layui-layout-right">
 	      <li class="layui-nav-item">
@@ -29,8 +18,8 @@
 	          <span id="qymc">贤心</span>
 	        </a>
 	        <dl class="layui-nav-child">
-	          <dd><a href="">基本资料</a></dd>
-	          <dd><a href="">安全设置</a></dd>
+	          <dd><a href="">回到首页</a></dd>
+	          <dd><a href="">设置</a></dd>
 	        </dl>
 	      </li>
 	      <li class="layui-nav-item"><a href="javascript:;" id="logout">退出登录</a></li>
@@ -41,26 +30,6 @@
 	    <div class="layui-side-scroll">
 	      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 	      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-	        <li class="layui-nav-item layui-nav-itemed">
-	          <a class="" href="javascript:;">农产品管理</a>
-	          <dl class="layui-nav-child">
-	            <dd><a href="javascript:;" class="tablink" id="productList" tabsrc="/ncpsy/product/list"><i class="layui-icon layui-icon-form"></i> 农产品列表</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="productAdd" tabsrc="/ncpsy/product/add"><i class="layui-icon layui-icon-add-circle-fine"></i> 新增农产品</a></dd>
-	          </dl>
-	        </li>
-	        <li class="layui-nav-item">
-	          <a href="javascript:;">二维码管理</a>
-	          <dl class="layui-nav-child">
-	            <dd><a href="javascript:;" class="tablink" id="qrcodeList" tabsrc="/ncpsy/qrcode/list"><i class="layui-icon layui-icon-form"></i> 二维码列表</a></dd>
-	          </dl>
-	        </li>
-	        <li class="layui-nav-item">
-	          <a href="javascript:;">溯源管理</a>
-	          <dl class="layui-nav-child">
-	            <dd><a href="javascript:;" class="tablink" id="sourceList" tabsrc="/ncpsy/source/list"><i class="layui-icon layui-icon-form"></i> 溯源列表</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="sourceChart" tabsrc="/ncpsy/source/chart"><i class="layui-icon layui-icon-chart"></i> 图表分析</a></dd>
-	          </dl>
-	        </li>
 	        <li class="layui-nav-item">
 	          <a href="javascript:;">企业管理</a>
 	          <dl class="layui-nav-child">

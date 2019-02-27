@@ -25,6 +25,12 @@ public class ViewsController {
 		return "index";
 	}
 	
+	@RequestMapping("/index")
+	public String index2(Model model) {
+		logger.info("访问index页面");
+		return "index";
+	}
+	
 	@RequestMapping("/login")
 	public String login(Model model) {
 		logger.info("访问user/login页面");

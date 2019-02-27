@@ -12,6 +12,7 @@ import com.suzhuoke.ncpsy.model.Ncp;
 import com.suzhuoke.ncpsy.model.Syly;
 import com.suzhuoke.ncpsy.model.SylyCountNcpGroupByNcpid;
 import com.suzhuoke.ncpsy.service.ISylyService;
+import com.suzhuoke.ncpsy.util.tool.Tool;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -48,6 +49,8 @@ public class SylyController {
 	
 	@Autowired
 	private SylyMapper sylyMapper;
+	
+	private static Tool tool = new Tool();
 	
 	/**
 	 * 溯源来源计数
@@ -150,53 +153,35 @@ public class SylyController {
 		logger.info("/handle/source/line===> syly={}", syly);
 		//groud by 溯源时间查询list
 		QueryWrapper<Syly> sylyQueryWrapper = new QueryWrapper<>();
-		sylyQueryWrapper.groupBy("sysj").eq("syqyid", syly.getSyqyid());
-		List<Syly> sylyList = sylyService.list(sylyQueryWrapper);
 		//map对象用来储存返回数据
 		Map map = new HashMap();
 		//新建sysjList和counts，用于保存时间和访问数
 		List<String> sysjList = new ArrayList<>();
-		int[] counts = new int[sylyList.size()];
-		if(sylyList.size() >= 7) {
-			//截取list最后七项
-			sylyList = sylyList.subList(sylyList.size()-7, sylyList.size());
-			int num = 0;
-			for(Syly item : sylyList) {
-				//依次查询溯源次数
-				QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
-				countQueryWrapper.eq("sysj", item.getSysj()).eq("syqyid", syly.getSyqyid());
-				int count = sylyService.count(countQueryWrapper);
-				counts[num] = count;
-				num++;
-				//溯源时间转字符串
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				String sysjString = df.format(item.getSysj());
-				sysjList.add(sysjString);
-			}
-			map.put("sysjList", sysjList);
-			map.put("counts", counts);
-			return map;
-		} else {
-			sylyList = sylyList.subList(0, sylyList.size());
-			int num = 0;
-			for(Syly item : sylyList) {
-				//依次查询溯源次数
-				QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
-				countQueryWrapper.eq("sysj", item.getSysj()).eq("syqyid", syly.getSyqyid());
-				int count = sylyService.count(countQueryWrapper);
-				counts[num] = count;
-				num++;
-				//溯源时间转字符串
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				String sysjString = df.format(item.getSysj());
-				sysjList.add(sysjString);
-			}
-			map.put("sysjList", sysjList);
-			map.put("counts", counts);
-			return map;
+		List<Integer> countList = new ArrayList<>();
+		for(int i = 6; i >= 0; i--) {
+			//获取i天前日期对象
+			Date date = tool.getDateBefore(new Date(), i);
+			//溯源时间转字符串
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String sysjString = df.format(date);
+			//查询i天前溯源数量
+			QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
+			countQueryWrapper.eq("sysj", sysjString).eq("syqyid", syly.getSyqyid());
+			int count = sylyService.count(countQueryWrapper);
+			//将结果插入list
+			countList.add(count);
+			sysjList.add(sysjString);
 		}
+		map.put("sysjList", sysjList);
+		map.put("counts",countList);
+		return map;
 	}
 	
+	/**
+	 * 获取溯源农产品分布数据
+	 * @param syly
+	 * @return
+	 */
 	@RequestMapping("/source/pie")
 	@ResponseBody
 	public Map sourcePie(@RequestBody Syly syly) {
@@ -225,6 +210,11 @@ public class SylyController {
 		return map;
 	}
 	
+	/**
+	 * 获取总溯源数
+	 * @param syly
+	 * @return
+	 */
 	@RequestMapping("/source/total")
 	@ResponseBody
 	public List<String> sourceTotal(@RequestBody Syly syly) {
@@ -238,6 +228,11 @@ public class SylyController {
 		return list;
 	}
 	
+	/**
+	 * 获取当日溯源数和同比增长比例
+	 * @param syly
+	 * @return
+	 */
 	@RequestMapping("/source/today")
 	@ResponseBody
 	public List<String> sourceToday(@RequestBody Syly syly) {
@@ -261,6 +256,73 @@ public class SylyController {
 		
 		List<String> list = new ArrayList<>();
 		list.add(todayCount+"");
+		list.add(rise+"%");
+		return list;
+	}
+	
+	/**
+	 * 获取7天溯源人数和同比增长比例
+	 * @param syly
+	 * @return
+	 */
+	@RequestMapping("/source/week")
+	@ResponseBody
+	public List<String> sourceWeek(@RequestBody Syly syly) {
+		logger.info("/handle/source/week===> syly={}", syly);
+		//获取今天和七天前的日期
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = df.format(new Date());
+		String weekBeforeString = df.format(tool.getDateBefore(new Date(), 6));
+		//查询介于两个日期之间的总数
+		QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
+		countQueryWrapper.between("sysj", weekBeforeString, dateString).eq("syqyid", syly.getSyqyid());
+		int count = sylyService.count(countQueryWrapper);
+		
+		//获取上一期的两个日期
+		String lastDateString = df.format(tool.getDateBefore(new Date(), 7));
+		String lastWeekBeforeString = df.format(tool.getDateBefore(new Date(), 13));
+		//同样查询两个日期之间的总数
+		QueryWrapper<Syly> lastCountQueryWrapper = new QueryWrapper<>();
+		lastCountQueryWrapper.between("sysj", lastWeekBeforeString, lastDateString).eq("syqyid", syly.getSyqyid());
+		int lastCount = sylyService.count(lastCountQueryWrapper);
+		
+		//通过两期数据算出同比增长比例
+		float rise = ((float)count - (float)lastCount) / (float)lastCount * 100;
+		
+		//返回数据
+		List<String> list = new ArrayList<>();
+		list.add(count+"");
+		list.add(rise+"%");
+		return list;
+	}
+	
+	@RequestMapping("/source/month")
+	@ResponseBody
+	public List<String> sourceMonth(@RequestBody Syly syly) {
+		logger.info("/handle/source/month===> syly={}", syly);
+		//获取今天和30天前的日期
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = df.format(new Date());
+		String monthBeforeString = df.format(tool.getDateBefore(new Date(), 29));
+		//查询介于两个日期之间的总数
+		QueryWrapper<Syly> countQueryWrapper = new QueryWrapper<>();
+		countQueryWrapper.between("sysj", monthBeforeString, dateString).eq("syqyid", syly.getSyqyid());
+		int count = sylyService.count(countQueryWrapper);
+		
+		//获取上一期的两个日期
+		String lastDateString = df.format(tool.getDateBefore(new Date(), 30));
+		String lastMonthBeforeString = df.format(tool.getDateBefore(new Date(), 59));
+		//同样查询两个日期之间的总数
+		QueryWrapper<Syly> lastCountQueryWrapper = new QueryWrapper<>();
+		lastCountQueryWrapper.between("sysj", lastMonthBeforeString, lastDateString).eq("syqyid", syly.getSyqyid());
+		int lastCount = sylyService.count(lastCountQueryWrapper);
+		
+		//通过两期数据算出同比增长比例
+		float rise = ((float)count - (float)lastCount) / (float)lastCount * 100;
+		
+		//返回数据
+		List<String> list = new ArrayList<>();
+		list.add(count+"");
 		list.add(rise+"%");
 		return list;
 	}

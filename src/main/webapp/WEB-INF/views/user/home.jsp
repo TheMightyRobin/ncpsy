@@ -48,7 +48,7 @@
 	          <a href="javascript:;">溯源管理</a>
 	          <dl class="layui-nav-child">
 	            <dd><a href="javascript:;" class="tablink" id="sourceList" tabsrc="/ncpsy/source/list"><i class="layui-icon layui-icon-form"></i> 溯源列表</a></dd>
-	            <dd><a href="javascript:;" class="tablink" id="sourceChart" tabsrc="/ncpsy/source/chart"><i class="layui-icon layui-icon-chart"></i> 图表分析</a></dd>
+	            <dd><a href="javascript:;" class="tablink" id="sourceChart" tabsrc="/ncpsy/source/chart"><i class="layui-icon layui-icon-chart"></i> 溯源图表</a></dd>
 	          </dl>
 	        </li>
 	        <li class="layui-nav-item">

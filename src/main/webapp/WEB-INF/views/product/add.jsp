@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <mytag:head title="农产品溯源系统-新增农产品"/>
-<body>
+<body style="padding:10px">
 	<div>
 		<form class="layui-form" style="width:50%">
 			<div class="layui-form-item">
