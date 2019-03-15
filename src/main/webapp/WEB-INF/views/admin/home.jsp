@@ -3,7 +3,7 @@
 <%@ taglib prefix="mytag" uri="/WEB-INF/tag/tag.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<mytag:head title="农产品溯源系统-超级管理员" defineJs="/ncpsy/static/js/isAdminLogin.js" />
+<mytag:head title="农产品溯源系统-超级管理员" defineJs="/ncpsy/static/js/isAdminLogin.js" defineCss="/ncpsy/static/css/tab-style.css" />
 <body>
 	<div class="layui-layout layui-layout-admin">
 	  <div class="layui-header">
@@ -48,10 +48,10 @@
 	  
 	  <div class="layui-body">
 	    <!-- 内容主体区域 -->
-	    <div class="layui-tab" lay-filter="page" lay-allowClose="true">
+	    <div class="layui-tab" lay-filter="page" lay-allowClose="true" style="height:100%">
 	    	<ul class="layui-tab-title">
 	    	</ul>
-	    	<div class="layui-tab-content">
+	    	<div class="layui-tab-content" style="height:100%;padding:0">
 	    	</div>
 	    </div>
 	  </div>
@@ -85,7 +85,7 @@
 			  tabList.push(tabId);
 			  element.tabAdd("page", {
 				  title: tabTitle,
-				  content: "<div><iframe src='" + tabSrc + "' width='100%' height='100%' frameborder='0'></iframe></div>",
+				  content: "<div style='height:100%'><iframe src='" + tabSrc + "' width='100%' height='100%' frameborder='0'></iframe></div>",
 				  id: tabId
 			  });
 		  }
