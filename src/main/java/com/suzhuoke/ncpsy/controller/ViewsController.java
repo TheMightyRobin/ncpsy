@@ -132,7 +132,11 @@ public class ViewsController {
 		logger.info("访问admin/user-list页面");
 		return "admin/user-list";
 	}
-	
+	@RequestMapping("/admin/addAdmin")
+	public String adminAdd(Model model) {
+		logger.info("访问admin/addAdmin页面");
+		return "admin/addAdmin";
+	}
 	@RequestMapping("/info/product-info")
 	public String infoProductInfo(Model model) {
 		logger.info("访问info/product-info页面");

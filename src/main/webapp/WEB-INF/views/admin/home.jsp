@@ -3,7 +3,7 @@
 <%@ taglib prefix="mytag" uri="/WEB-INF/tag/tag.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<mytag:head title="农产品溯源系统-超级管理员" defineJs="/ncpsy/static/js/isAdminLogin.js" defineCss="/ncpsy/static/css/tab-style.css" />
+<mytag:head title="农产品溯源系统-超级管理员" defineJs="/ncpsy/static/js/isAdminLogin.js"  defineCss="/ncpsy/static/css/tab-style.css" />
 <body>
 	<div class="layui-layout layui-layout-admin">
 	  <div class="layui-header">
@@ -40,6 +40,9 @@
 	          <a href="javascript:;">超级管理员</a>
 	          <dl class="layui-nav-child">
 	            <dd><a href="javascript:;" class="tablink" id="userSetting" tabsrc="/ncpsy/admin/setting"><i class="layui-icon layui-icon-set-fill"></i> 设置</a></dd>
+	          </dl>
+	          <dl class="layui-nav-child">
+	            <dd><a href="javascript:;" class="tablink" id="userAdd" tabsrc="/ncpsy/admin/addAdmin"><i class="layui-icon layui-icon-set-fill"></i> 增加管理员</a></dd>
 	          </dl>
 	        </li>
 	      </ul>
